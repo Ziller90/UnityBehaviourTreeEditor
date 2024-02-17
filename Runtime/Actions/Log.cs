@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheKiwiCoder {
+
     [System.Serializable]
-    public class Log : ActionNode {
+    public class Log : ActionNode
+    {
         [Tooltip("Message to log to the console")]
         public NodeProperty<string> message = new NodeProperty<string>();
 
