@@ -113,4 +113,10 @@ namespace TheKiwiCoder {
     public class ColliderKey : BlackboardKey<Collider> {
 
     }
+
+    [System.Serializable]
+    public class ComponentKey : BlackboardKey<Component>
+    {
+
+    }
 }
