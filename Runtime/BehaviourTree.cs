@@ -76,7 +76,7 @@ namespace TheKiwiCoder {
             return tree;
         }
 
-        public void Bind(ContextBase context) {
+        public void Bind(Context context) {
             Traverse(rootNode, node => {
                 node.context = context;
                 node.blackboard = blackboard;

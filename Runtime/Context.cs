@@ -5,18 +5,15 @@ using UnityEngine.AI;
 
 namespace TheKiwiCoder
 {
-    public class ContextBase
+    public class Context
     {
         public GameObject GameObject { get; set; }
         public Transform Transform { get; set; }
 
-        public ContextBase(GameObject gameObject)
+        public Context(GameObject gameObject)
         {
             GameObject = gameObject;
             Transform = gameObject.transform;
-            AddAddictiveContext(gameObject);
         }
-
-        public virtual void AddAddictiveContext(GameObject gameObject) { }
     }
 }

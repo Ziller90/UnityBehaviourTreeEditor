@@ -29,7 +29,7 @@ namespace TheKiwiCoder
         public List<BlackboardKeyValuePair> blackboardOverrides = new List<BlackboardKeyValuePair>();
 
         // Storage container object to hold game object subsystems
-        ContextBase context;
+        Context context;
 
         // Start is called before the first frame update
         void OnEnable()
@@ -69,9 +69,9 @@ namespace TheKiwiCoder
                 runtimeTree.Update();
         }
 
-        public virtual ContextBase CreateBehaviourTreeContext()
+        public Context CreateBehaviourTreeContext()
         {
-            return new ContextBase(gameObject);
+            return new Context(gameObject);
         }
 
         bool ValidateTree()
