@@ -2,26 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheKiwiCoder {
+namespace TheKiwiCoder
+{
     [System.Serializable]
-    public class Sequencer : CompositeNode {
-        protected int current;
+    public class Sequencer : CompositeNode
+    {
+        protected override void OnStart() { }
+        protected override void OnStop() { }
 
-        protected override void OnStart() {
-            current = 0;
-        }
-
-        protected override void OnStop() {
-        }
-
-        protected override State OnUpdate() {
-            for (int i = current; i < children.Count; ++i) {
-                current = i;
-                var child = children[current];
-
-                switch (child.Update()) {
+        protected override State OnUpdate()
+        {
+            foreach(var child in children)
+            { 
+                switch (child.Update())
+                {
                     case State.Running:
-                        return State.Running;
+                         return State.Running;
                     case State.Failure:
                         return State.Failure;
                     case State.Success:

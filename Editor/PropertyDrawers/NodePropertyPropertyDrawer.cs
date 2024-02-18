@@ -1,10 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.UIElements;
 using System.Runtime.Remoting.Messaging;
+using System.Reflection;
 
 namespace TheKiwiCoder {
 
@@ -12,7 +13,6 @@ namespace TheKiwiCoder {
     public class GenericNodePropertyPropertyDrawer : PropertyDrawer {
 
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-            
             BehaviourTree tree = property.serializedObject.targetObject as BehaviourTree;
 
             var genericTypes = fieldInfo.FieldType.GenericTypeArguments;
@@ -25,6 +25,7 @@ namespace TheKiwiCoder {
             label.AddToClassList("unity-property-field__label");
             label.AddToClassList("unity-property-field");
             label.text = property.displayName;
+            ApplyTooltip(label, fieldInfo);
 
             PropertyField defaultValueField = new PropertyField();
             defaultValueField.label = "";
@@ -85,6 +86,15 @@ namespace TheKiwiCoder {
             container.Add(dropdown);
 
             return container;
+        }
+
+        private void ApplyTooltip(VisualElement element, FieldInfo fieldInfo)
+        {
+            var tooltipAttribute = fieldInfo.GetCustomAttribute<TooltipAttribute>();
+            if (tooltipAttribute != null)
+            {
+                element.tooltip = tooltipAttribute.tooltip;
+            }
         }
 
         private string FormatItem(BlackboardKey item) {
