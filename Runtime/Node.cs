@@ -21,15 +21,6 @@ namespace TheKiwiCoder {
         [TextArea] public string description;
         [Tooltip("When enabled, the nodes OnDrawGizmos will be invoked")] public bool drawGizmos = false;
 
-        public virtual string GetHelp()
-        {
-            return null;
-        }
-
-        public virtual void OnInit() {
-            // Nothing to do here
-        }
-
         public State Update() {
 
             if (!started) {
@@ -55,10 +46,11 @@ namespace TheKiwiCoder {
             });
         }
 
+        public virtual void OnInit() { }
+        public virtual string GetHelp() => null;
         public virtual void OnDrawGizmos() { }
-
-        protected abstract void OnStart();
-        protected abstract void OnStop();
+        protected virtual void OnStart() { }
+        protected virtual void OnStop() { }
         protected abstract State OnUpdate();
 
         protected virtual void Log(string message) {
