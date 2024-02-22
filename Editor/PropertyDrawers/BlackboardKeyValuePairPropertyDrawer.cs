@@ -64,8 +64,11 @@ namespace TheKiwiCoder {
 
             if (dropdown.value != null)
             {
-                second.managedReferenceValue = BlackboardKey.CreateKey(dropdown.value.GetType());
-                second.serializedObject.ApplyModifiedProperties();
+                if (second.managedReferenceValue == null || first.managedReferenceValue.GetType() != second.managedReferenceValue.GetType())
+                {
+                    second.managedReferenceValue = BlackboardKey.CreateKey(dropdown.value.GetType());
+                    second.serializedObject.ApplyModifiedProperties();
+                }
 
                 PropertyField field = new PropertyField();
                 field.label = second.displayName;
