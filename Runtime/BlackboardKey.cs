@@ -28,7 +28,6 @@ namespace TheKiwiCoder {
         public static BlackboardKey CreateKey(System.Type type) {
             return System.Activator.CreateInstance(type) as BlackboardKey;
         }
-
     }
 
     [System.Serializable]

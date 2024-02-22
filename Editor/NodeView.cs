@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,6 +51,9 @@ namespace TheKiwiCoder {
             CreateOutputPorts();
             SetupClasses();
             SetupDataBinding();
+
+            if (node.GetHelp() != null)
+                CreateHelpIcon();
 
             this.AddManipulator(new DoubleClickNode());
         }
@@ -164,6 +167,21 @@ namespace TheKiwiCoder {
                         break;
                 }
             }
+        }
+
+        private void CreateHelpIcon()
+        {
+            var helpIcon = new Button()
+            {
+                text = "?"
+            };
+            helpIcon.AddToClassList("help-icon"); // Добавляем класс для стилизации
+            helpIcon.style.position = Position.Absolute;
+            helpIcon.style.right = 4; // Настройте отступ справа
+            helpIcon.style.top = -22; // Настройте отступ сверху
+            helpIcon.tooltip = node.GetHelp(); // Простая подсказка
+
+            titleContainer.Add(helpIcon); // Добавляем значок к контейнеру заголовка ноды
         }
     }
 }

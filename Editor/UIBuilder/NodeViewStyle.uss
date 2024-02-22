@@ -134,3 +134,14 @@
     -unity-text-align: upper-center;
     -unity-font-style: bold;
 }
+.help-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #F0F0F0;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+}
+
