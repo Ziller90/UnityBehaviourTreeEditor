@@ -11,9 +11,6 @@ namespace TheKiwiCoder
     {
         public BlackboardKeyValuePair pair;
 
-        protected override void OnStart() { }
-        protected override void OnStop() { }
-
         protected override State OnUpdate()
         {
             BlackboardKey blackBoardKey = pair.key;

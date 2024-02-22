@@ -10,12 +10,6 @@ namespace TheKiwiCoder {
     {
         public BlackboardKeyValuePair pair;
 
-        protected override void OnStart() {
-        }
-
-        protected override void OnStop() {
-        }
-
         protected override State OnUpdate() {
             
             pair.WriteValue();

@@ -9,12 +9,6 @@ namespace TheKiwiCoder {
         [Range(0,1)]
         [Tooltip("Percentage chance of failure")] public float chanceOfFailure = 0.5f;
 
-        protected override void OnStart() {
-        }
-
-        protected override void OnStop() {
-        }
-
         protected override State OnUpdate() {
             float value = Random.value;
             if (value > chanceOfFailure) {

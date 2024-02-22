@@ -8,9 +8,6 @@ public class CompareKeys : ActionNode
 {
     public BlackboardKeyKeyPair pair;
 
-    protected override void OnStart() { }
-    protected override void OnStop() { }
-
     protected override State OnUpdate()
     {
         BlackboardKey key1 = pair.key1;

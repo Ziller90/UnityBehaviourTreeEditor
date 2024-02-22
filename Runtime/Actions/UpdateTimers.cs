@@ -6,8 +6,6 @@ using UnityEngine;
 public class UpdateTimers : ActionNode
 {
     [SerializeField] NodeProperty<float> timer = new NodeProperty<float>();
-    protected override void OnStart() { }
-    protected override void OnStop() { }
 
     protected override State OnUpdate()
     {

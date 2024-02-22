@@ -16,12 +16,6 @@ namespace TheKiwiCoder {
         [Tooltip("Blackboard key to write the result to")] 
         public NodeProperty<Vector3> result;
 
-        protected override void OnStart() {
-        }
-
-        protected override void OnStop() {
-        }
-
         protected override State OnUpdate() {
             Vector3 pos = new Vector3();
             pos.x = Random.Range(min.x, max.x);
