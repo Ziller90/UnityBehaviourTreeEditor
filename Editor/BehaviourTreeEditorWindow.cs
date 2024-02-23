@@ -304,7 +304,7 @@ namespace TheKiwiCoder {
                 if (Application.isPlaying) {
                     SelectTree(subtreeNode.treeInstance);
                 } else {
-                    SelectTree(subtreeNode.treeAsset);
+                    SelectTree(subtreeNode.treeAsset.Value);
                 }
             } else {
                 Debug.LogError("Invalid subtree assigned. Assign a a behaviour tree to the tree asset field");

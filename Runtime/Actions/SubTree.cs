@@ -9,14 +9,15 @@ namespace TheKiwiCoder
     [System.Serializable]
     public class SubTree : ActionNode
     {
-        [Tooltip("Behaviour tree asset to run as a subtree")] public BehaviourTree treeAsset;
+        [Tooltip("Behaviour tree asset to run as a subtree")]
+        public NodeProperty<BehaviourTree> treeAsset = new NodeProperty<BehaviourTree>();
         [HideInInspector] public BehaviourTree treeInstance;
 
         public override void OnInit()
         {
-            if (treeAsset)
+            if (treeAsset.Value)
             {
-                treeInstance = treeAsset.Clone();
+                treeInstance = treeAsset.Value.Clone();
                 treeInstance.Bind(context);
             }
         }

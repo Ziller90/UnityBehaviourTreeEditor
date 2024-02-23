@@ -119,4 +119,10 @@ namespace TheKiwiCoder {
     {
 
     }
+
+    [System.Serializable]
+    public class SubTreeKey : BlackboardKey<BehaviourTree>
+    {
+
+    }
 }

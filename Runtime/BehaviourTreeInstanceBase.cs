@@ -34,15 +34,13 @@ namespace TheKiwiCoder
         // Start is called before the first frame update
         void OnEnable()
         {
-
             bool isValid = ValidateTree();
             if (isValid)
             {
                 context = CreateBehaviourTreeContext();
                 runtimeTree = behaviourTree.Clone();
-                runtimeTree.Bind(context);
-
                 ApplyBlackboardOverrides();
+                runtimeTree.Bind(context);
             }
             else
             {
@@ -81,72 +79,9 @@ namespace TheKiwiCoder
                 Debug.LogWarning($"No BehaviourTree assigned to {name}, assign a behaviour tree in the inspector");
                 return false;
             }
-
-            bool isValid = true;
-            if (validate)
-            {
-                string cyclePath;
-                isValid = !IsRecursive(behaviourTree, out cyclePath);
-
-                if (!isValid)
-                    Debug.LogError($"Failed to create recursive behaviour tree. Found cycle at: {cyclePath}");
-            }
-
-            return isValid;
+            return true;
         }
-
-        bool IsRecursive(BehaviourTree tree, out string cycle)
-        {
-            // Check if any of the subtree nodes and their decendents form a circular reference, which will cause a stack overflow.
-            List<string> treeStack = new List<string>();
-            HashSet<BehaviourTree> referencedTrees = new HashSet<BehaviourTree>();
-
-            bool cycleFound = false;
-            string cyclePath = "";
-
-            System.Action<Node> traverse = null;
-            traverse = (node) =>
-            {
-                if (!cycleFound)
-                {
-                    if (node is SubTree subtree && subtree.treeAsset != null)
-                    {
-                        treeStack.Add(subtree.treeAsset.name);
-                        if (referencedTrees.Contains(subtree.treeAsset))
-                        {
-                            int index = 0;
-                            foreach (var tree in treeStack)
-                            {
-                                index++;
-                                if (index == treeStack.Count)
-                                    cyclePath += $"{tree}";
-                                else
-                                    cyclePath += $"{tree} -> ";
-                            }
-
-                            cycleFound = true;
-                        }
-                        else
-                        {
-                            referencedTrees.Add(subtree.treeAsset);
-                            BehaviourTree.Traverse(subtree.treeAsset.rootNode, traverse);
-                            referencedTrees.Remove(subtree.treeAsset);
-                        }
-                        treeStack.RemoveAt(treeStack.Count - 1);
-                    }
-                }
-            };
-            treeStack.Add(tree.name);
-
-            referencedTrees.Add(tree);
-            BehaviourTree.Traverse(tree.rootNode, traverse);
-            referencedTrees.Remove(tree);
-
-            treeStack.RemoveAt(treeStack.Count - 1);
-            cycle = cyclePath;
-            return cycleFound;
-        }
-
+        
         private void OnDrawGizmosSelected()
         {
             if (!Application.isPlaying)
