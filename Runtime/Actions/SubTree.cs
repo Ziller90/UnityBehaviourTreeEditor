@@ -20,12 +20,32 @@ namespace TheKiwiCoder
                 treeInstance = treeAsset.Value.Clone();
                 treeInstance.Bind(context);
             }
+
+            var subtrees = context.GameObject.GetComponent<BehaviourTreeInstanceBase>().subTreesBlackboardOverrides;
+            foreach (var subtree in subtrees)
+            {
+                if (subtree.behaviourTree == treeAsset.Value)
+                {
+                    ApplyBlackboardOverrides(treeInstance, subtree.blackboardOverrides);
+                }
+            }
+        }
+
+        void ApplyBlackboardOverrides(BehaviourTree tree, List<BlackboardKeyValuePair> blackboardOverrides)
+        {
+            foreach (var pair in blackboardOverrides)
+            {
+                var targetKey = tree.blackboard.Find(pair.key.name);
+                var sourceKey = pair.value;
+                if (targetKey != null && sourceKey != null)
+                    targetKey.CopyFrom(sourceKey);
+            }
         }
 
         protected override void OnStart()
         {
             if (treeInstance)
-                treeInstance.treeState = Node.State.Running;
+                treeInstance.treeState = State.Running;
         }
 
         protected override State OnUpdate()

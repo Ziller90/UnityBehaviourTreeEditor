@@ -1,28 +1,52 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.UIElements;
 
-namespace TheKiwiCoder {
+namespace TheKiwiCoder
+{
 
     [CustomPropertyDrawer(typeof(BlackboardKeyValuePair))]
-    public class BlackboardKeyValuePairPropertyDrawer : PropertyDrawer {
-
+    public class BlackboardKeyValuePairPropertyDrawer : PropertyDrawer
+    {
         VisualElement pairContainer;
 
-        BehaviourTree GetBehaviourTree(SerializedProperty property) {
-            if (property.serializedObject.targetObject is BehaviourTree tree) {
-                return tree;
-            } else if (property.serializedObject.targetObject is BehaviourTreeInstanceBase instance) {
-                return instance.RuntimeTree;
+        BehaviourTree GetBehaviourTree(SerializedProperty property)
+        {
+            if (property.serializedObject.targetObject is BehaviourTreeInstanceBase instance)
+            {
+                string propertyPath = property.propertyPath;
+                if (propertyPath.StartsWith("blackboardOverrides"))
+                {
+                    return instance.RuntimeTree;
+                }
+                else if (propertyPath.StartsWith("subTreesBlackboardOverrides"))
+                {
+                    string[] pathParts = propertyPath.Split('.');
+                    if (pathParts.Length > 1)
+                    {
+                        string listIndexStr = pathParts[2][5].ToString();
+                        if (int.TryParse(listIndexStr, out int listIndex))
+                        {
+                            var subTreeOverride = instance.subTreesBlackboardOverrides[listIndex];
+                            return subTreeOverride.behaviourTree;
+                        }
+                    }
+                }
             }
+            else if (property.serializedObject.targetObject is BehaviourTree tree)
+            {
+                return tree;
+            }
+
             Debug.LogError("Could not find behaviour tree this is referencing");
             return null;
         }
 
-        public override VisualElement CreatePropertyGUI(SerializedProperty property) {
+        public override VisualElement CreatePropertyGUI(SerializedProperty property)
+        {
             SerializedProperty first = property.FindPropertyRelative(nameof(BlackboardKeyValuePair.key));
             SerializedProperty second = property.FindPropertyRelative(nameof(BlackboardKeyValuePair.value));
 
@@ -33,23 +57,28 @@ namespace TheKiwiCoder {
             dropdown.value = first.managedReferenceValue as BlackboardKey;
 
             BehaviourTree tree = GetBehaviourTree(property);
-            dropdown.RegisterCallback<MouseEnterEvent>((evt) => {
+            dropdown.RegisterCallback<MouseEnterEvent>((evt) =>
+            {
                 dropdown.choices.Clear();
-                foreach (var key in tree.blackboard.keys) {
+                foreach (var key in tree.blackboard.keys)
+                {
                     dropdown.choices.Add(key);
                 }
             });
 
-            dropdown.RegisterCallback<ChangeEvent<BlackboardKey>>((evt) => {
+            dropdown.RegisterCallback<ChangeEvent<BlackboardKey>>((evt) =>
+            {
                 BlackboardKey newKey = evt.newValue;
                 first.managedReferenceValue = newKey;
                 property.serializedObject.ApplyModifiedProperties();
 
-                if (pairContainer.childCount > 1) {
+                if (pairContainer.childCount > 1)
+                {
                     pairContainer.RemoveAt(1);
                 }
 
-                if (second.managedReferenceValue == null || second.managedReferenceValue.GetType() != dropdown.value.GetType()) {
+                if (second.managedReferenceValue == null || second.managedReferenceValue.GetType() != dropdown.value.GetType())
+                {
                     second.managedReferenceValue = BlackboardKey.CreateKey(dropdown.value.GetType());
                     second.serializedObject.ApplyModifiedProperties();
                 }
@@ -79,10 +108,14 @@ namespace TheKiwiCoder {
             return pairContainer;
         }
 
-        private string FormatItem(BlackboardKey item) {
-            if (item == null) {
+        private string FormatItem(BlackboardKey item)
+        {
+            if (item == null)
+            {
                 return "(null)";
-            } else {
+            }
+            else
+            {
                 return item.name;
             }
         }

@@ -15,10 +15,8 @@ public class CompareKeys : ActionNode
 
         if (key2.Equals(key1))
         {
-            Debug.Log("Equals");
             return State.Success;
         }
-        Debug.Log("NotEquals");
         return State.Failure;
     }
 }

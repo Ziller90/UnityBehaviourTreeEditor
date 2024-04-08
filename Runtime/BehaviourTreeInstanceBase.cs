@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +27,9 @@ namespace TheKiwiCoder
         public bool validate = true;
 
         // These values override the keys in the blackboard
-        public List<BlackboardKeyValuePair> blackboardOverrides = new List<BlackboardKeyValuePair>();
+        public List<BlackboardKeyValuePair> blackboardOverrides = new();
+
+        public List<SubTreeBlackboardOverrides> subTreesBlackboardOverrides = new();
 
         // Storage container object to hold game object subsystems
         Context context;
@@ -116,5 +119,14 @@ namespace TheKiwiCoder
                 return runtimeTree.blackboard.GetValue<T>(keyName);
             return default(T);
         }
+    }
+
+    [Serializable]
+    public class SubTreeBlackboardOverrides
+    {
+        [Tooltip("Subtree asset")]
+        public BehaviourTree behaviourTree;
+
+        public List<BlackboardKeyValuePair> blackboardOverrides = new List<BlackboardKeyValuePair>();
     }
 }

@@ -18,10 +18,8 @@ namespace TheKiwiCoder
 
             if (value.Equals(blackBoardKey))
             {
-                Debug.Log("Equals");
                 return State.Success;
             }
-            Debug.Log("NotEquals");
             return State.Failure;
         }
     }
