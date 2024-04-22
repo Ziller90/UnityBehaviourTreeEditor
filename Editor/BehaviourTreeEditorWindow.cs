@@ -221,7 +221,7 @@ namespace TheKiwiCoder {
 
         private void OnSelectionChange() {
             if (Selection.activeGameObject) {
-                BehaviourTreeInstanceBase runner = Selection.activeGameObject.GetComponent<BehaviourTreeInstanceBase>();
+                BehaviourTreeInstance runner = Selection.activeGameObject.GetComponent<BehaviourTreeInstance>();
                 if (runner) {
                     SelectNewTree(runner.RuntimeTree);
                 }

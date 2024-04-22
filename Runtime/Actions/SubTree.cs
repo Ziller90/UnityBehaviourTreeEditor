@@ -21,7 +21,7 @@ namespace TheKiwiCoder
                 treeInstance.Bind(context);
             }
 
-            var subtrees = context.GameObject.GetComponent<BehaviourTreeInstanceBase>().subTreesBlackboardOverrides;
+            var subtrees = context.GameObject.GetComponent<BehaviourTreeInstance>().subTreesBlackboardOverrides;
             foreach (var subtree in subtrees)
             {
                 if (subtree.behaviourTree == treeAsset.Value)
@@ -31,7 +31,7 @@ namespace TheKiwiCoder
             }
         }
 
-        void ApplyBlackboardOverrides(BehaviourTree tree, List<BlackboardKeyValuePair> blackboardOverrides)
+        void ApplyBlackboardOverrides(BehaviourTree tree, List<BlackboardKeyOverride> blackboardOverrides)
         {
             foreach (var pair in blackboardOverrides)
             {

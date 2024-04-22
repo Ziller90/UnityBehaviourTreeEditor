@@ -38,7 +38,6 @@ namespace TheKiwiCoder
     [System.Serializable]
     public abstract class BlackboardKey<T> : BlackboardKey
     {
-
         public T value;
 
         public BlackboardKey() : base(typeof(T))

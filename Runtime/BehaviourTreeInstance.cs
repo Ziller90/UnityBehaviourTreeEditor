@@ -5,11 +5,11 @@ using UnityEngine;
 namespace TheKiwiCoder
 {
     [AddComponentMenu("TheKiwiCoder/BehaviourTreeInstance")]
-    public class BehaviourTreeInstanceBase : MonoBehaviour
+    public class BehaviourTreeInstance : MonoBehaviour
     {
-        // The main behaviour tree asset
         [Tooltip("BehaviourTree asset to instantiate during Awake")]
         public BehaviourTree behaviourTree;
+
         BehaviourTree runtimeTree;
 
         public BehaviourTree RuntimeTree
@@ -23,18 +23,13 @@ namespace TheKiwiCoder
             }
         }
 
-        [Tooltip("Run behaviour tree validation at startup (Can be disabled for release)")]
         public bool validate = true;
 
-        // These values override the keys in the blackboard
-        public List<BlackboardKeyValuePair> blackboardOverrides = new();
-
+        public List<BlackboardKeyOverride> blackboardOverrides = new();
         public List<SubTreeBlackboardOverrides> subTreesBlackboardOverrides = new();
 
-        // Storage container object to hold game object subsystems
         Context context;
 
-        // Start is called before the first frame update
         void OnEnable()
         {
             bool isValid = ValidateTree();
@@ -55,7 +50,6 @@ namespace TheKiwiCoder
         {
             foreach (var pair in blackboardOverrides)
             {
-                // Find the key from the new behaviour tree instance
                 var targetKey = runtimeTree.blackboard.Find(pair.key.name);
                 var sourceKey = pair.value;
                 if (targetKey != null && sourceKey != null)
@@ -63,7 +57,6 @@ namespace TheKiwiCoder
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (runtimeTree)
@@ -127,6 +120,6 @@ namespace TheKiwiCoder
         [Tooltip("Subtree asset")]
         public BehaviourTree behaviourTree;
 
-        public List<BlackboardKeyValuePair> blackboardOverrides = new List<BlackboardKeyValuePair>();
+        public List<BlackboardKeyOverride> blackboardOverrides = new List<BlackboardKeyOverride>();
     }
 }

@@ -4,31 +4,31 @@ using UnityEngine.UIElements;
 
 namespace TheKiwiCoder
 {
-    [CustomEditor(typeof(BehaviourTreeInstanceBase))]
-    public class BehaviourTreeInstanceEditor : Editor
-    {
-        public override VisualElement CreateInspectorGUI()
-        {
-            VisualElement container = new VisualElement();
+    //[CustomEditor(typeof(BehaviourTreeInstance))]
+    //public class BehaviourTreeInstanceEditor : Editor
+    //{
+    //    public override VisualElement CreateInspectorGUI()
+    //    {
+    //        VisualElement container = new VisualElement();
 
-            PropertyField treeField = new PropertyField();
-            treeField.bindingPath = nameof(BehaviourTreeInstanceBase.behaviourTree);
+    //        PropertyField treeField = new PropertyField();
+    //        treeField.bindingPath = nameof(BehaviourTreeInstance.behaviourTree);
 
-            PropertyField validateField = new PropertyField();
-            validateField.bindingPath = nameof(BehaviourTreeInstanceBase.validate);
+    //        PropertyField validateField = new PropertyField();
+    //        validateField.bindingPath = nameof(BehaviourTreeInstance.validate);
 
-            PropertyField blackboardOverrides = new PropertyField();
-            blackboardOverrides.bindingPath = nameof(BehaviourTreeInstanceBase.blackboardOverrides);
+    //        PropertyField blackboardOverrides = new PropertyField();
+    //        blackboardOverrides.bindingPath = nameof(BehaviourTreeInstance.blackboardOverrides);
 
-            PropertyField subTreesblackboardOverrides = new PropertyField();
-            subTreesblackboardOverrides.bindingPath = nameof(BehaviourTreeInstanceBase.subTreesBlackboardOverrides);
+    //        PropertyField subTreesblackboardOverrides = new PropertyField();
+    //        subTreesblackboardOverrides.bindingPath = nameof(BehaviourTreeInstance.subTreesBlackboardOverrides);
 
-            container.Add(treeField);
-            container.Add(validateField);
-            container.Add(blackboardOverrides);
-            container.Add(subTreesblackboardOverrides);
+    //        container.Add(treeField);
+    //        container.Add(validateField);
+    //        container.Add(blackboardOverrides);
+    //        container.Add(subTreesblackboardOverrides);
 
-            return container;
-        }
-    }
+    //        return container;
+    //    }
+    //}
 }

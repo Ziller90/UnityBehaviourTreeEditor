@@ -15,31 +15,8 @@ namespace TheKiwiCoder
 
         BehaviourTree GetBehaviourTree(SerializedProperty property)
         {
-            if (property.serializedObject.targetObject is BehaviourTreeInstanceBase instance)
-            {
-                string propertyPath = property.propertyPath;
-                if (propertyPath.StartsWith("blackboardOverrides"))
-                {
-                    return instance.RuntimeTree;
-                }
-                else if (propertyPath.StartsWith("subTreesBlackboardOverrides"))
-                {
-                    string[] pathParts = propertyPath.Split('.');
-                    if (pathParts.Length > 1)
-                    {
-                        string listIndexStr = pathParts[2][5].ToString();
-                        if (int.TryParse(listIndexStr, out int listIndex))
-                        {
-                            var subTreeOverride = instance.subTreesBlackboardOverrides[listIndex];
-                            return subTreeOverride.behaviourTree;
-                        }
-                    }
-                }
-            }
-            else if (property.serializedObject.targetObject is BehaviourTree tree)
-            {
+            if (property.serializedObject.targetObject is BehaviourTree tree)
                 return tree;
-            }
 
             Debug.LogError("Could not find behaviour tree this is referencing");
             return null;

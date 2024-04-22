@@ -20,7 +20,7 @@ namespace TheKiwiCoder
             {
                 return tree;
             }
-            else if (property.serializedObject.targetObject is BehaviourTreeInstanceBase instance)
+            else if (property.serializedObject.targetObject is BehaviourTreeInstance instance)
             {
                 return instance.RuntimeTree;
             }
